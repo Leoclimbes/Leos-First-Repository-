@@ -1,0 +1,10 @@
+let pie = "cherry";
+console.log(pie);
+let cake = "choclate";
+console.log(cake);
+cake = pie;
+console.log(cake);
+let apple = "good";
+console.log(apple);
+apple = "great";
+console.log(apple);
