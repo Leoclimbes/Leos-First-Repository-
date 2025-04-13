@@ -4,4 +4,4 @@ let popped = luna.pop();
 console.log(popped);
 console.log(luna);
 luna[luna.length - 5] = "tired";
-console.log(luna);
+console.log(luna)
