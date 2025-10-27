@@ -145,5 +145,13 @@ findLargest(72,56,89)*/
 }
 sumOfAnArray([1,2,3,4])*/
 
-
-
+/*function countSpaces(sentence) {
+    let total = 0
+    for(let i = 0; i < sentence.length; i++){
+        if(sentence[i] == " ") {
+            total++
+        } 
+    }
+    console.log(total)
+}
+countSpaces("Hi Hi")*/
