@@ -64,15 +64,85 @@ console.log(hearts)*/
 
 let randomCards = []
 let valuesOnly = []
+let numberOfValues = []
 
-for(let i = 0; i < 5; i++ ){
+// Gets 5 random cards from cards and puts it into an array 
+for(let i = 0; i < 7; i++ ){
     let randomNum = Math.floor(Math.random() * (52 - 0) + 0);
     let randomCard = cards[randomNum];
     randomCards.push(randomCard)
     }
 
+// Takes randomcards array and returns just the values 
 for(let card of randomCards ){
     valuesOnly.push(card.value)   
     }
 
-console.log(valuesOnly)
+let counter = 0;
+// Outer loop: pick each value
+for (let i = 0; i < valuesOnly.length; i++) {
+    let counter = 0;
+    
+    // Check if this value has already been counted
+    let alreadyCounted = false;
+    for (let j = 0; j < i; j++) {  // scan all earlier values
+        if (valuesOnly[i] === valuesOnly[j]) {
+            alreadyCounted = true;  // we've already counted it
+            break;
+        }
+    }
+    
+    if (alreadyCounted) continue; // skip this value
+    
+    // Inner loop: count how many times it appears in the array
+    for (let a = 0; a < valuesOnly.length; a++) {
+        if (valuesOnly[i] === valuesOnly[a]) {
+            counter += 1;
+        }
+    }
+    
+    // Store the count
+    numberOfValues.push(counter);
+}
+
+
+console.log(numberOfValues); 
+
+// assign count variables
+let count1 = 0
+let count2 = 0
+let count3 = 0
+let count4 = 0
+
+// check to see how many of each value there are and assign that vale to its count variable 
+for(let i = 0; i < numberOfValues.length; i++){
+    if (numberOfValues[i] == 1) {
+        count1 += 1;
+    } else if (numberOfValues[i] == 2) {
+        count2 += 1;
+    } else if (numberOfValues[i] == 3) {
+        count3 += 1;
+    } else if (numberOfValues[i] == 4) {
+        count4 += 1;
+    }   
+}
+
+// log in the console what hand the player has 
+if (count4 == 1){
+    console.log("You have four of a kind")
+}
+else if(count3 == 1 && count2 == 1){
+    console.log("You have a full house")
+}
+else if (count2 == 2){
+    console.log("You have 2 pair")
+}
+else if (count3 == 1){
+    console.log("You have three of a kind or trips ")
+}
+else if (count2 == 1){
+    console.log("You have a pair")
+}
+else {
+    console.log("You have high card")
+}
