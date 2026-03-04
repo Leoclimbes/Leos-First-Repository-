@@ -1,4 +1,3 @@
-
 // Cards array 
 let cards = [
     { suit: "h", value: "a" },
@@ -55,46 +54,57 @@ let cards = [
     { suit: "c", value: "k" },
     
 ]
-// Logic to return just the hearts 
-/*let hearts = cards.filter(deck => {
-    return deck.suit === "h"
-})
-
-console.log(hearts)*/
 
 let randomCards = []
 let valuesOnly = []
 let numberOfValues = []
+let suitsOnly = []
 
 // Gets 5 random cards from cards and puts it into an array 
 for(let i = 0; i < 7; i++ ){
-    let randomNum = Math.floor(Math.random() * (52 - 0) + 0);
+    let randomNum = Math.floor(Math.random() * (cards.length));
     let randomCard = cards[randomNum];
     randomCards.push(randomCard)
+    cards.splice(randomNum, 1)
     }
 
 // Takes randomcards array and returns just the values 
 for(let card of randomCards ){
-    valuesOnly.push(card.value)   
+    if(card.value == "a"){
+        valuesOnly.push(1)
+        valuesOnly.push(14)
+    }
+    else if(card.value == "j"){
+        valuesOnly.push(11)
+    } else if(card.value == "q"){
+        valuesOnly.push(12)
+    }
+    else if(card.value == "k"){
+        valuesOnly.push(13)
+    }
+    else{
+    valuesOnly.push(Number(card.value))  
+    } 
     }
 
+
 let counter = 0;
-// Outer loop: pick each value
+// pick each value
 for (let i = 0; i < valuesOnly.length; i++) {
     let counter = 0;
     
     // Check if this value has already been counted
     let alreadyCounted = false;
-    for (let j = 0; j < i; j++) {  // scan all earlier values
+    for (let j = 0; j < i; j++) {  
         if (valuesOnly[i] === valuesOnly[j]) {
-            alreadyCounted = true;  // we've already counted it
+            alreadyCounted = true; 
             break;
         }
     }
     
     if (alreadyCounted) continue; // skip this value
     
-    // Inner loop: count how many times it appears in the array
+    // count how many times it appears in the array
     for (let a = 0; a < valuesOnly.length; a++) {
         if (valuesOnly[i] === valuesOnly[a]) {
             counter += 1;
@@ -104,9 +114,6 @@ for (let i = 0; i < valuesOnly.length; i++) {
     // Store the count
     numberOfValues.push(counter);
 }
-
-
-console.log(numberOfValues); 
 
 // assign count variables
 let count1 = 0
@@ -146,3 +153,78 @@ else if (count2 == 1){
 else {
     console.log("You have high card")
 }
+
+let spade = 0
+let diamond = 0
+let club = 0
+let heart = 0
+
+// add the suits to suitsOnly 
+for(let suit of randomCards){
+    suitsOnly.push(suit.suit)
+}
+
+// keep track of number of suits
+for(let i = 0; i < suitsOnly.length; i++){
+    if(suitsOnly[i] == "s") {
+        spade += 1
+    }
+    else if(suitsOnly[i] == "d"){
+        diamond += 1
+    }
+    else if(suitsOnly[i] == "c"){
+        club += 1
+    }
+    else if(suitsOnly[i] == "h"){
+        heart += 1
+    }
+}
+
+// check and log if someone has a flush 
+if(spade >= 5){
+    console.log("You have a spade flush")
+} 
+else if(diamond >= 5){
+    console.log("You have a diamond flush")
+}
+else if(club >= 5){
+    console.log("You have a club flush")
+}
+else if(heart >= 5){
+    console.log("You have a heart flush")
+}
+
+valuesOnlyNoDuplicates = []
+
+// add all the values form valuesOnly to values only no duplicates with no duplicates
+for(let i = 0; i < valuesOnly.length; i++){
+    if(valuesOnlyNoDuplicates.includes(valuesOnly[i])){
+        continue
+    }
+    else{
+        valuesOnlyNoDuplicates.push(valuesOnly[i])
+    }
+}
+// sort values only no duplicates
+valuesOnlyNoDuplicates.sort((a, b) => a - b)
+
+let sorted = 1
+// check check if there is a straight
+for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
+        
+        if(valuesOnlyNoDuplicates[i + 1] - valuesOnlyNoDuplicates[i] == 1){
+            sorted +=1
+        }
+        else{
+            sorted = 1
+        }
+        if(sorted >= 5){
+            console.log("You have a straight")
+            break
+        }
+    }
+
+
+    
+
+
