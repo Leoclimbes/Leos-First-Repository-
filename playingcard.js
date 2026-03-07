@@ -59,7 +59,14 @@ let randomCards = []
 let valuesOnly = []
 let numberOfValues = []
 let suitsOnly = []
+let flushCards = []
+let valuesOnlyNoDuplicates = []
+let flushValuesNoDuplicates = []
 
+hasSpade = false
+hasDiamond = false
+hasClub = false
+hasHeart = false
 hasFlush = false
 hasStraight = false
 hasFull = false
@@ -170,22 +177,22 @@ let club = 0
 let heart = 0
 
 // add the suits to suitsOnly 
-for(let suit of randomCards){
-    suitsOnly.push(suit.suit)
-}
+//for(let suit of randomCards){
+    //suitsOnly.push(suit.suit)
+//}
 
 // keep track of number of suits
-for(let i = 0; i < suitsOnly.length; i++){
-    if(suitsOnly[i] == "s") {
+for(let i = 0; i < randomCards.length; i++){
+    if(randomCards[i].suit == "s") {
         spade += 1
     }
-    else if(suitsOnly[i] == "d"){
+    else if(randomCards[i].suit == "d"){
         diamond += 1
     }
-    else if(suitsOnly[i] == "c"){
+    else if(randomCards[i].suit == "c"){
         club += 1
     }
-    else if(suitsOnly[i] == "h"){
+    else if(randomCards[i].suit == "h"){
         heart += 1
     }
 }
@@ -193,34 +200,38 @@ for(let i = 0; i < suitsOnly.length; i++){
 // check and log if someone has a flush 
 if(spade >= 5){
     hasFlush = true
+    hasSpade = true
 } 
 else if(diamond >= 5){
     hasFlush = true
+    hasDiamond = true
 }
 else if(club >= 5){
     hasFlush = true
+    hasClub = true
 }
 else if(heart >= 5){
     hasFlush = true
+    hasHeart = true
 }
 
-valuesOnlyNoDuplicates = []
 
+function checkStraight(arr1, arr2){
 // add all the values form valuesOnly to values only no duplicates with no duplicates
-for(let i = 0; i < valuesOnly.length; i++){
-    if(valuesOnlyNoDuplicates.includes(valuesOnly[i])){
-        continue
+    for(let i = 0; i < valuesOnly.length; i++){
+        if(valuesOnlyNoDuplicates.includes(valuesOnly[i])){
+            continue
+     }
+        else{
+            valuesOnlyNoDuplicates.push(valuesOnly[i])
+        }
     }
-    else{
-        valuesOnlyNoDuplicates.push(valuesOnly[i])
-    }
-}
-// sort values only no duplicates
-valuesOnlyNoDuplicates.sort((a, b) => a - b)
+        // sort values only no duplicates
+    valuesOnlyNoDuplicates.sort((a, b) => a - b)
 
-let sorted = 1
+    let sorted = 1
 // check check if there is a straight
-for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
+    for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
         
         if(valuesOnlyNoDuplicates[i + 1] - valuesOnlyNoDuplicates[i] == 1){
             sorted +=1
@@ -229,15 +240,38 @@ for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
             sorted = 1
         }
         if(sorted >= 5){
-            hasStraight = true
-            break
+        hasStraight = true
+        break
+        }
+    }
+}
+
+    if (hasFlush){
+        for(let i = 0; i < suitsOnly.length; i++){
+            if(hasSpade){
+                if(suitsOnly[i] == "s"){
+                    flushCards.push(randomCards[i])
+                }
+            }
+            else if(hasDiamond){
+                if(suitsOnly[i] == "d"){
+                    flushCards.push(randomCards[i])
+                }
+            }
+            else if(hasClub){
+                if(suitsOnly[i] == "c"){
+                    flushCards.push(randomCards[i])
+                }
+            }
+            else if(hasHeart){
+                if(suitsOnly[i] == "h"){
+                    flushCards.push(randomCards[i])
+                }
+            }
         }
     }
 
-    if (hasFlush && hasStraight){
-        console.log("You have a straight flush")
-    } 
-    else if (has4){
+    if (has4){
         console.log("You have 4 of a kind")
     }
     else if (hasFull){
@@ -258,9 +292,15 @@ for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
     else if (has1){
         console.log("You have 2 of a kind")
     }
-    else if (has4){
+    else if (has0){
         console.log("You have high card")
     }
+
+    console.log(flushCards)
+    
+
+
+
 
 
     
