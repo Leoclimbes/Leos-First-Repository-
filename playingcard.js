@@ -59,22 +59,32 @@ let randomCards = []
 let valuesOnly = []
 let numberOfValues = []
 let suitsOnly = []
-let flushCards = []
+let flushValues = []
 let valuesOnlyNoDuplicates = []
 let flushValuesNoDuplicates = []
 
-hasSpade = false
-hasDiamond = false
-hasClub = false
-hasHeart = false
-hasFlush = false
-hasStraight = false
-hasFull = false
-has4 = false
-has3 = false
-has2 = false
-has1 = false
-has0 = false
+object1 = {suit: "h", value: "1"}
+object2 = {suit: "h", value: "2"}
+object3 = {suit: "h", value: "3"}
+object4 = {suit: "h", value: "4"}
+object5 = {suit: "h", value: "5"}
+
+randomCards.push(object1, object2, object3, object4, object5)
+
+let hasSpade = false
+let hasDiamond = false
+let hasClub = false
+let hasHeart = false
+let hasFlush = false
+let hasStraight = false
+let hasStraightFlush = false
+let hasFull = false
+let has4 = false
+let has3 = false
+let has2 = false
+let has1 = false
+let has0 = false
+
 
 // Gets 5 random cards from cards and puts it into an array 
 for(let i = 0; i < 7; i++ ){
@@ -180,7 +190,6 @@ let heart = 0
 //for(let suit of randomCards){
     //suitsOnly.push(suit.suit)
 //}
-
 // keep track of number of suits
 for(let i = 0; i < randomCards.length; i++){
     if(randomCards[i].suit == "s") {
@@ -215,63 +224,71 @@ else if(heart >= 5){
     hasHeart = true
 }
 
-
-function checkStraight(arr1, arr2){
+function checkStraight(arr1, arr2, b){
 // add all the values form valuesOnly to values only no duplicates with no duplicates
-    for(let i = 0; i < valuesOnly.length; i++){
-        if(valuesOnlyNoDuplicates.includes(valuesOnly[i])){
+    for(let i = 0; i < arr1.length; i++){
+        if(arr2.includes(arr1[i])){
             continue
      }
         else{
-            valuesOnlyNoDuplicates.push(valuesOnly[i])
+            arr2.push(arr1[i])
         }
     }
         // sort values only no duplicates
-    valuesOnlyNoDuplicates.sort((a, b) => a - b)
+    arr2.sort((a, b) => a - b)
 
     let sorted = 1
 // check check if there is a straight
-    for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
+    for(let i = 0; i < arr2.length - 1; i++){
         
-        if(valuesOnlyNoDuplicates[i + 1] - valuesOnlyNoDuplicates[i] == 1){
+        if(arr2[i + 1] - arr2[i] == 1){
             sorted +=1
         }
         else{
             sorted = 1
         }
         if(sorted >= 5){
-        hasStraight = true
+        b = true
         break
         }
     }
 }
+checkStraight(valuesOnly, valuesOnlyNoDuplicates, hasStraight)
+
 
     if (hasFlush){
-        for(let i = 0; i < suitsOnly.length; i++){
+        for(let i = 0; i < randomCards.length; i++){
             if(hasSpade){
-                if(suitsOnly[i] == "s"){
-                    flushCards.push(randomCards[i])
+                if(randomCards[i].suit == "s"){
+                    flushValues.push(randomCards[i].value)
                 }
             }
             else if(hasDiamond){
-                if(suitsOnly[i] == "d"){
-                    flushCards.push(randomCards[i])
+                if(randomCards[i].suit == "d"){
+                    flushValues.push(randomCards[i].value)
                 }
             }
             else if(hasClub){
-                if(suitsOnly[i] == "c"){
-                    flushCards.push(randomCards[i])
+                if(randomCards[i].suit == "c"){
+                    flushValues.push(randomCards[i].value)
                 }
             }
             else if(hasHeart){
-                if(suitsOnly[i] == "h"){
-                    flushCards.push(randomCards[i])
+                if(randomCards[i].suit == "h"){
+                    flushValues.push(randomCards[i].value)
                 }
             }
         }
     }
 
-    if (has4){
+    
+
+
+
+    if(hasStraightFlush){
+        console.log("You have a straight flush")
+    }
+    else if (has4){
         console.log("You have 4 of a kind")
     }
     else if (hasFull){
@@ -296,7 +313,8 @@ function checkStraight(arr1, arr2){
         console.log("You have high card")
     }
 
-    console.log(flushCards)
+    
+    
     
 
 
