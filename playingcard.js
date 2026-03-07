@@ -60,6 +60,15 @@ let valuesOnly = []
 let numberOfValues = []
 let suitsOnly = []
 
+hasFlush = false
+hasStraight = false
+hasFull = false
+has4 = false
+has3 = false
+has2 = false
+has1 = false
+has0 = false
+
 // Gets 5 random cards from cards and puts it into an array 
 for(let i = 0; i < 7; i++ ){
     let randomNum = Math.floor(Math.random() * (cards.length));
@@ -134,24 +143,25 @@ for(let i = 0; i < numberOfValues.length; i++){
     }   
 }
 
-// log in the console what hand the player has 
+// assign values to true if a player has that hand 
 if (count4 == 1){
-    console.log("You have four of a kind")
+    has4 = true
 }
 else if(count3 == 1 && count2 == 1){
-    console.log("You have a full house")
-}
-else if (count2 == 2){
-    console.log("You have 2 pair")
+    hasFull = true
 }
 else if (count3 == 1){
-    console.log("You have three of a kind or trips ")
+    has3 = true
+    
+}
+else if (count2 == 2){
+    has2 = true
 }
 else if (count2 == 1){
-    console.log("You have a pair")
+    has1 = true
 }
 else {
-    console.log("You have high card")
+    has0 = true
 }
 
 let spade = 0
@@ -182,16 +192,16 @@ for(let i = 0; i < suitsOnly.length; i++){
 
 // check and log if someone has a flush 
 if(spade >= 5){
-    console.log("You have a spade flush")
+    hasFlush = true
 } 
 else if(diamond >= 5){
-    console.log("You have a diamond flush")
+    hasFlush = true
 }
 else if(club >= 5){
-    console.log("You have a club flush")
+    hasFlush = true
 }
 else if(heart >= 5){
-    console.log("You have a heart flush")
+    hasFlush = true
 }
 
 valuesOnlyNoDuplicates = []
@@ -219,9 +229,37 @@ for(let i = 0; i < valuesOnlyNoDuplicates.length - 1; i++){
             sorted = 1
         }
         if(sorted >= 5){
-            console.log("You have a straight")
+            hasStraight = true
             break
         }
+    }
+
+    if (hasFlush && hasStraight){
+        console.log("You have a straight flush")
+    } 
+    else if (has4){
+        console.log("You have 4 of a kind")
+    }
+    else if (hasFull){
+        console.log("You have a full house")
+    } 
+    else if (hasFlush){
+        console.log("You have a flush")
+    }
+    else if (hasStraight){
+        console.log("You have a straight")
+    } 
+    else if (has3){
+        console.log("You have 3 of a kind")
+    }
+    else if (has2){
+        console.log("You have 2 pair")
+    }
+    else if (has1){
+        console.log("You have 2 of a kind")
+    }
+    else if (has4){
+        console.log("You have high card")
     }
 
 
